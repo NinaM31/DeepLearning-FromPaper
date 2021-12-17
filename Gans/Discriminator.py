@@ -17,11 +17,11 @@ class Discriminator(nn.Module):
 
     def fc_layer(self, input_dim, output_dim):
             
-            return nn.Sequential(
-                    nn.Linear(input_dim, output_dim),
-                    self.activation,
-                    self.dropout
-                )
+        return nn.Sequential(
+                nn.Linear(input_dim, output_dim),
+                self.activation,
+                self.dropout
+            )
 
 
     def forward(self, x):
