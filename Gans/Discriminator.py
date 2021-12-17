@@ -3,7 +3,6 @@ import torch.nn as nn
 class Discriminator(nn.Module):
 
     def __init__(self, input_size, hidden_dim, output_size):
-        
         super(Discriminator, self).__init__()
 
         self.dropout = nn.Dropout(0.3)
@@ -16,7 +15,6 @@ class Discriminator(nn.Module):
     
 
     def fc_layer(self, input_dim, output_dim):
-            
         return nn.Sequential(
                 nn.Linear(input_dim, output_dim),
                 self.activation,
@@ -25,7 +23,6 @@ class Discriminator(nn.Module):
 
 
     def forward(self, x):
-
         x = self.fc_hidden0(x)
         x = self.fc_hidden1(x)
         x = self.fc_hidden2(x)
