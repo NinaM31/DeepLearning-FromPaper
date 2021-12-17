@@ -3,7 +3,6 @@ import torch.nn as nn
 class Generator(nn.Module):
     
     def __init__(self, input_size, hidden_dim, output_size):
-
         super(Generator, self).__init__()
 
         self.dropout = nn.Dropout(0.3)
