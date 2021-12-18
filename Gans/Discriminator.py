@@ -5,6 +5,7 @@ class Discriminator(nn.Module):
     def __init__(self, input_size, hidden_dim, output_size):
         super(Discriminator, self).__init__()
 
+        self.input_size = input_size
         self.dropout = nn.Dropout(0.3)
         self.activation = nn.LeakyReLU(0.2)
 
@@ -23,6 +24,7 @@ class Discriminator(nn.Module):
 
 
     def forward(self, x):
+        x = x.view(-1, self.input_size)
         x = self.fc_hidden0(x)
         x = self.fc_hidden1(x)
         x = self.fc_hidden2(x)
