@@ -11,7 +11,11 @@ class Generator(nn.Module):
         self.fc_hidden0 = self.fc_layer(input_size, hidden_dim)
         self.fc_hidden1 = self.fc_layer(hidden_dim, hidden_dim*2)
         self.fc_hidden2 = self.fc_layer(hidden_dim*2, hidden_dim*4)
-        self.fc_out = nn.Linear(hidden_dim*4, output_size)
+        self.fc_out = nn.Sequential(
+            nn.Linear(hidden_dim*4, output_size),
+            nn.Tanh()
+        ) 
+        
 
     
     def fc_layer(self, input_dim, output_dim):
@@ -27,4 +31,4 @@ class Generator(nn.Module):
         x = self.fc_hidden1(x)
         x = self.fc_hidden2(x)
 
-        return nn.Tanh(self.fc_out(x))
+        return self.fc_out(x)
