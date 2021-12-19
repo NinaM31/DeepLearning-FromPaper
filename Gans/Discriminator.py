@@ -7,6 +7,8 @@ class Discriminator(nn.Module):
 
         self.input_size = input_size
         self.dropout = nn.Dropout(0.3)
+
+        # The paper used maxout lreulu is a specialized form of maxout
         self.activation = nn.LeakyReLU(0.2)
 
         self.fc_hidden0 = self.fc_layer(input_size, hidden_dim*4)
