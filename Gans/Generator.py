@@ -6,6 +6,8 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
 
         self.dropout = nn.Dropout(0.3)
+
+        # The paper used relu
         self.activation = nn.LeakyReLU(0.2)
 
         self.fc_hidden0 = self.fc_layer(input_size, hidden_dim)
@@ -13,7 +15,7 @@ class Generator(nn.Module):
         self.fc_hidden2 = self.fc_layer(hidden_dim*2, hidden_dim*4)
         self.fc_out = nn.Sequential(
             nn.Linear(hidden_dim*4, output_size),
-            nn.Tanh()
+            nn.Tanh() # The paper used sigmoid
         ) 
         
 
