@@ -6,39 +6,24 @@ from torchvision import datasets
 import torchvision.transforms as transforms
 
 from GAN import GAN
+from config import *
 
 
 # Dataset
-num_workers = 0
-batch_size = 64
-
 transform = transforms.ToTensor()
 
 data = datasets.MNIST(root='data', train=True, download=True, transform=transform)
-data_loader = torch.utils.data.DataLoader(data, batch_size=batch_size, num_workers=num_workers)
-
-# Hyperparameters
-z_size = 100
-sample_size = 16
-
-input_size = 28*28
-
-d_hidden_dim = 32
-d_out_size = 1
-
-g_hidden_dim =  32
-g_out_size = input_size
+data_loader = torch.utils.data.DataLoader(data, batch_size=BATCH_SIZE, num_workers=NUM_WORKERS)
 
 # Model
-gan_model = GAN(z_size, input_size, d_hidden_dim, g_hidden_dim, d_out_size, g_out_size)
+gan_model = GAN(Z_SIZE, INPUT_SIZE, D_HIDDEN_DIM, G_HIDDEN_DIM, D_OUT_SIZE, G_OUT_SIZE)
 
 # Oprimizer
-lr = 0.002
 d_optimizer = optim.Adam(gan_model.D.parameters(), lr)
 g_optimizer = optim.Adam(gan_model.G.parameters(), lr)
 
 # train
-sample_result, losses_history = gan_model.train(500, d_optimizer, g_optimizer, data_loader, z_size, sample_size)
+sample_result, losses_history = gan_model.train(50, d_optimizer, g_optimizer, data_loader, Z_SIZE, SAMPLE_SIZE)
 
 # Plot
 fig, ax = plt.subplots()
