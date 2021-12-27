@@ -19,8 +19,10 @@ class Dataset(torch.utils.data.Dataset):
             transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225]),
         ])
         
+
     def __len__(self):
         return len(self.img_list)
+    
     
     def __getitem__(self, idx):
         path = self.img_list[idx]
