@@ -2,6 +2,7 @@ import os
 
 import torch 
 from torchvision import transforms
+from PIL import Image
 
 
 class Dataset(torch.utils.data.Dataset):
@@ -31,6 +32,4 @@ class Dataset(torch.utils.data.Dataset):
         img = Image.open(path).convert('RGB')
 
         img_tensor = self.transform(img)
-        img_tensor = img_tensor.permute(2, 0, 1)
-
         return img_tensor, img_name
