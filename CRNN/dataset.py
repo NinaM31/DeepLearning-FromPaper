@@ -3,7 +3,7 @@ import os
 import torch 
 from torchvision import transforms
 
-class CaptchaDataset(torch.utils.data.Dataset):
+class Dataset(torch.utils.data.Dataset):
 
     def __init__(self, img_dir):
         path_list = os.listdir(img_dir)
