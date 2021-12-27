@@ -33,23 +33,31 @@ class CRNN(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d((1,2), 2),
 
-            nn.Conv2d(512, 512, (2,2), stride=1, padding=0)
+            nn.Conv2d(512, 512, (2,2), stride=1, padding=0),
+            self.dropout
         )
 
-        self.mapSeq = nn.Linear(1024, 64)
-
-        self.lstmlayer = nn.Sequential(
-            nn.LSTM(64, 256, bidirectional=True, num_layers=2, batch_first=True),
-            nn.LSTM(256, 256, bidirectional=True, num_layers=2, batch_first=True),
+        self.mapSeq = nn.Sequential(
+            nn.Linear(1024, 64),
+            self.dropout
         )
+        
+        self.lstm_0 = nn.LSTM(64, 256, bidirectional=True, num_layers=2, batch_first=True)  
+        self.lstm_1 = nn.LSTM(512, 256, bidirectional=True, num_layers=2, batch_first=True)
 
-        self.out = nn.Linear(256*2, vocab_size)
+        self.out = nn.Linear(512, vocab_size)
         
         
     def forward(self, x): 
         x = self.convlayer(x)
-        x = self.dropout(x)
+        
+        x = x.permute(0, 3, 1, 2)
+        x = x.view(x.size(0), x.size(1), -1)
         x = self.mapSeq(x)
-        x = self.lstmlayer(x)
 
-        return self.out(x)
+        x, _ = self.lstm_0(x)
+        x, _ = self.lstm_1(x)
+
+        x = self.out(x)
+        
+        return x
