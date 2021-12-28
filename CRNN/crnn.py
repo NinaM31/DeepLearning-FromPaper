@@ -7,8 +7,6 @@ class CRNN(nn.Module):
     def __init__(self, vocab_size, dropout=0.5):
         super(CRNN, self).__init__()
 
-        self.device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-        
         self.dropout = nn.Dropout(dropout)
 
         self.convlayer = nn.Sequential(
@@ -41,7 +39,7 @@ class CRNN(nn.Module):
         )
 
         self.mapSeq = nn.Sequential(
-            nn.Linear(6656, 64),
+            nn.Linear(3072, 64),
             self.dropout
         )
         
@@ -49,13 +47,9 @@ class CRNN(nn.Module):
         self.lstm_1 = nn.LSTM(512, 256, bidirectional=True, num_layers=2, batch_first=True)
 
         self.out = nn.Linear(512, vocab_size)
-
-        self.to(self.device)
-        print('Model loaded to ', self.device)
         
         
     def forward(self, x): 
-        x = x.to(self.device)
         x = self.convlayer(x)
 
         x = x.permute(0, 3, 1, 2)
@@ -66,4 +60,4 @@ class CRNN(nn.Module):
         x, _ = self.lstm_1(x)
 
         x = self.out(x)   
-        return x
+        return x.permute(1, 0, 2)
