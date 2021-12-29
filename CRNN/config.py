@@ -9,6 +9,6 @@ VOCAB_SIZE = len(CHARS) + 1
 
 lr = 0.02
 weight_decay = 1e-5
-momentum = 0.9
+momentum = 0.7
 
-EPOCHS = 30
+EPOCHS = 10
