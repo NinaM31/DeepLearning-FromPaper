@@ -5,10 +5,10 @@ BATCH_SIZE = 8
 N_WORKERS = 0
 
 CHARS = 'abcdefghijklmnopqrstuvwxyz0123456789'
-VOCAB_SIZE = len(CHARS)
+VOCAB_SIZE = len(CHARS) + 1
 
 lr = 0.02
 weight_decay = 1e-5
-momentum = 0.8
+momentum = 0.9
 
-EPOCHS = 1
+EPOCHS = 30

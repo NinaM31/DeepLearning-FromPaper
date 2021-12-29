@@ -39,14 +39,17 @@ class CRNN(nn.Module):
         )
 
         self.mapSeq = nn.Sequential(
-            nn.Linear(3072, 64),
+            nn.Linear(1024, 256),
             self.dropout
         )
         
-        self.lstm_0 = nn.LSTM(64, 256, bidirectional=True, num_layers=2, batch_first=True)  
-        self.lstm_1 = nn.LSTM(512, 256, bidirectional=True, num_layers=2, batch_first=True)
+        # In paper LSTM is used
+        self.lstm_0 = nn.GRU(256, 256, bidirectional=True)  
+        self.lstm_1 = nn.GRU(512, 256, bidirectional=True)
 
-        self.out = nn.Linear(512, vocab_size)
+        self.out = nn.Sequential(
+            nn.Linear(512, vocab_size),
+        )
         
         
     def forward(self, x): 
@@ -54,6 +57,7 @@ class CRNN(nn.Module):
 
         x = x.permute(0, 3, 1, 2)
         x = x.view(x.size(0), x.size(1), -1)
+     
         x = self.mapSeq(x)
 
         x, _ = self.lstm_0(x)
