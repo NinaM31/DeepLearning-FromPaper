@@ -1,4 +1,4 @@
-# MNIST Results
+# GANs Results
 Training on MNIST dataset for 500 epochs
 
 ### Loss Statistics

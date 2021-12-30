@@ -1,4 +1,4 @@
-# CAPTCHA Results
+# CRNN Results
 Training on CAPTCHA dataset for 10 epochs
 
 ### Loss Statistics
