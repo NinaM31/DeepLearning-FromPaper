@@ -14,7 +14,10 @@ class Dataset(torch.utils.data.Dataset):
         self.img_list = [os.path.join(abspath, path) for path in path_list]
 
         self.transform = transforms.Compose([
-            transforms.ToTensor()
+            transforms.Resize(64),
+            # transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
         ])
 
 
