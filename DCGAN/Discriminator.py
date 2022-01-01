@@ -8,10 +8,16 @@ class Discriminator(nn.Module):
         self.conv_dim = conv_dim
 
         self.conv1 = self.conv_layer(3, conv_dim, batch_norm=False)
-        self.conv2 = self.conv_layer(conv_dim, conv_dim*2,)
-        self.conv3 = self.conv_layer(conv_dim*2, conv_dim*4,)
+        self.conv2 = self.conv_layer(conv_dim, conv_dim*2)
+        self.conv3 = self.conv_layer(conv_dim*2, conv_dim*4)
+        self.conv4 = self.conv_layer(conv_dim*4, conv_dim*8)
+        self.conv5 = self.conv_layer(conv_dim*8, conv_dim*8, stride=1, padding=0)
         
-        self.fc = nn.Linear(conv_dim*4*4*4, 1)
+        self.fc = nn.Sequential(
+            nn.Linear(conv_dim*8, 1),
+            nn.Sigmoid()
+        )
+        
 
 
     def conv_layer(self, in_channels, out_channels, kernel_size=4, stride=2, padding=1, batch_norm=True):
@@ -27,11 +33,23 @@ class Discriminator(nn.Module):
         return nn.Sequential(*layers)
 
 
+
     def forward(self, x):
+        # print('D ', x.size())
         x = self.conv1(x)
+        # print('D ', x.size())
         x = self.conv2(x)
+        # print('D ', x.size())
         x = self.conv3(x)
+        # print('D ', x.size())
+        x = self.conv4(x)
+        # print('D ', x.size())
+        x = self.conv5(x)
+        # print('D ', x.size())
 
-        x = x.view(-1, self.conv_dim*4*4*4)
+        x = x.view(-1, self.conv_dim*8)
+        # print('D ', x.size())
 
-        return self.fc(x)        
+        x = self.fc(x)  
+        # print('D ', x.size())
+        return x
