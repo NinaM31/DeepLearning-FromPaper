@@ -1,4 +1,5 @@
 data
 images
 venv
+*.pkl
 __pycache__
