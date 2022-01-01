@@ -124,8 +124,7 @@ class DCGAN:
             samples.append( self.G(z) )
             self.G.train()
 
-        with open('GAN_Sample_Output.pkl', 'wb') as f:
+        with open('DCGAN_Sample_Output.pkl', 'wb') as f:
             pkl.dump(samples, f)
 
         return samples, losses 
-    
