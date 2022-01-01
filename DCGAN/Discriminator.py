@@ -33,23 +33,14 @@ class Discriminator(nn.Module):
         return nn.Sequential(*layers)
 
 
-
     def forward(self, x):
-        # print('D ', x.size())
         x = self.conv1(x)
-        # print('D ', x.size())
         x = self.conv2(x)
-        # print('D ', x.size())
         x = self.conv3(x)
-        # print('D ', x.size())
         x = self.conv4(x)
-        # print('D ', x.size())
         x = self.conv5(x)
-        # print('D ', x.size())
 
         x = x.view(-1, self.conv_dim*8)
-        # print('D ', x.size())
 
         x = self.fc(x)  
-        # print('D ', x.size())
         return x
