@@ -1,3 +1,4 @@
+import torch
 from torch import nn as nn
 
 
@@ -7,7 +8,6 @@ class Generator(nn.Module):
         super(Generator, self).__init__()
 
         self.conv_dim = conv_dim
-
         self.fc = nn.Linear(z_size, conv_dim*8*2*2)
         
         self.tconv1 = self.deconv_layer(conv_dim*8, conv_dim*4)
@@ -19,7 +19,7 @@ class Generator(nn.Module):
         self.dropout = nn.Dropout(0.50)
 
     
-    def deconv_layer(in_channels, out_channels, kernel_size=4, stride=2, padding=1, batch_norm=True, activation=True):
+    def deconv_layer(self, in_channels, out_channels, kernel_size=4, stride=2, padding=1, batch_norm=True, activation=True):
         layers = []
 
         layers.append(nn.ConvTranspose2d(in_channels, out_channels, kernel_size, stride, padding, bias=False))
@@ -42,6 +42,5 @@ class Generator(nn.Module):
             
         x = self.tconv3(x)
         x = self.tconv4(x)
-        x = torch.tanh(x)
         
-        return out
+        return torch.tanh(x)
