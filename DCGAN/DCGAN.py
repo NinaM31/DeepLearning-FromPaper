@@ -41,7 +41,7 @@ class DCGAN:
 
     def real_loss(self, D_out):
         batch_size = D_out.size(0)
-        labels = torch.ones(batch_size).to(self.device)
+        labels = torch.ones(batch_size).to(self.device)*0.9
 
         return self.__calculate_loss(D_out, labels) 
 
@@ -63,8 +63,9 @@ class DCGAN:
 
         z = self.noise(size)
         fake_images = self.G(z)
-
+        
         d_fake = self.D(fake_images)
+
         g_loss = self.real_loss(d_fake)
 
         g_loss.backward()
@@ -81,7 +82,7 @@ class DCGAN:
 
         z = self.noise(size)
         fake_images = self.G(z)
-
+      
         d_fake = self.D(fake_images)
         d_fake_loss = self.fake_loss(d_fake)
 
