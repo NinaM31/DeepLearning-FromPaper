@@ -21,7 +21,7 @@ d_optimizer = optim.Adam(dcgan_model.D.parameters(), lr, [beta1, beta2])
 g_optimizer = optim.Adam(dcgan_model.G.parameters(), lr, [beta1, beta2])
 
 # train
-sample_result, losses_history = dcgan_model.train(EPOCHS, d_optimizer, g_optimizer, data_loader, Z_SIZE, SAMPLE_SIZE, 20)
+sample_result, losses_history = dcgan_model.train(EPOCHS, d_optimizer, g_optimizer, data_loader, Z_SIZE, SAMPLE_SIZE)
 
 # Plot
 fig, ax = plt.subplots()
@@ -34,11 +34,17 @@ plt.show()
 
 fig, axes = plt.subplots(figsize=(16,4), nrows=2, ncols=8, sharey=True, sharex=True)
 for ax, img in zip(axes.flatten(), sample_result[EPOCHS-1]):
+    _, w, h = img.size()
+     
     img = img.detach().cpu().numpy()
+
     img = np.transpose(img, (1, 2, 0))
+    
     img = ((img +1)*255 / (2)).astype(np.uint8)
+
     ax.xaxis.set_visible(False)
     ax.yaxis.set_visible(False)
-    im = ax.imshow(img.reshape((32,32,3)))
+    
+    im = ax.imshow(img.reshape((w,h,3)))
 
 plt.show()
