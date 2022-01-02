@@ -21,6 +21,16 @@ class DCGAN:
         self.D.to(self.device)
         self.G.to(self.device)
 
+        self.D.apply(self.weights_init)
+        self.G.apply(self.weights_init)
+
+    def weights_init(self, m):
+        classname = m.__class__.__name__
+        if classname.find('Conv') != -1:
+            nn.init.normal_(m.weight.data, 0.0, 0.02)
+        elif classname.find('BatchNorm') != -1:
+            nn.init.normal_(m.weight.data, 1.0, 0.02)
+            nn.init.constant_(m.bias.data, 0)
 
     def describe(self):
         print('Discriminator')
@@ -29,26 +39,22 @@ class DCGAN:
         print('\nGenerator')
         print(self.G)
 
-
-    def rescale_image(self, image):
-        return image*2 - 1
-
     
     def __calculate_loss(self, output, labels):
-        criterion = nn.BCEWithLogitsLoss()
+        criterion = nn.BCELoss()
         return criterion(output.squeeze(), labels)
 
 
     def real_loss(self, D_out):
         batch_size = D_out.size(0)
-        labels = torch.ones(batch_size).to(self.device)*0.9
+        labels = torch.ones(batch_size).to(self.device)*0.8
 
         return self.__calculate_loss(D_out, labels) 
 
 
     def fake_loss(self, D_out):
         batch_size = D_out.size(0)
-        labels = torch.zeros(batch_size).to(self.device)
+        labels = torch.ones(batch_size).to(self.device)*0.1
  
         return self.__calculate_loss(D_out, labels)
 
@@ -77,7 +83,7 @@ class DCGAN:
     def train_discriminator(self, d_optim, real_images, size):
         d_optim.zero_grad()
 
-        d_real = self.D(real_images.to(self.device))
+        d_real = self.D(real_images.to(self.device)).view(-1)
         d_real_loss = self.real_loss(d_real)
 
         z = self.noise(size)
@@ -106,7 +112,6 @@ class DCGAN:
         for epoch in range(num_epochs):
             for i, real_images in enumerate(data_loader):                    
                 batch_size = real_images.size(0)
-                real_images = self.rescale_image(real_images)
 
                 d_loss = self.train_discriminator(d_optim, real_images, (sample_size, z_size))
                 g_loss = self.train_generator(g_optim, (sample_size, z_size))
