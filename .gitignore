@@ -2,4 +2,5 @@ data
 images
 venv
 *.pkl
+CycleGAN
 __pycache__
