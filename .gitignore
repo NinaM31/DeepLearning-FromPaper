@@ -3,5 +3,5 @@ images
 venv
 *.pkl
 CycleGAN
-Arabic_diacritization
+tmp
 __pycache__
