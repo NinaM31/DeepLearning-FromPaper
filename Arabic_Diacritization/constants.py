@@ -54,6 +54,7 @@ VAL_DIR = f"{BASE_PATH}/.Tashkeel/valid.txt"
 TEST_DIR = f"{BASE_PATH}/.Tashkeel/test.txt"
 PICKLE_LOCATION = f"{BASE_PATH}/.Tashkeel"
 
+
 def CHAR_IDX():
     char2idx = {}
     idx2char = {}

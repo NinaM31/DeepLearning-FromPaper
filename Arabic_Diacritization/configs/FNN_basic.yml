@@ -1,14 +1,14 @@
 MODAL : "BaseModal"
 SAVE_AS : "FNN_Basic_Modal"
 
-BATCH_SIZE : 512
+BATCH_SIZE : 256
 N_WORKERS : 0
 
 FFNN_OUT : 15 #ََ  ً  ُ  ٌ  ِ  ٍ  ْ  ّ  َّ  ًّ  ُّ  ٌّ  ِّ  ٍّ  + no-diacritic = 15
 FFNN_IN : 100 
 
 lR : 0.01
-EPOCHS : 300 
+EPOCHS : 50 
 
 IS_CHECKPOINT_EXIST: false # is your data prepared for FFNN models?
 

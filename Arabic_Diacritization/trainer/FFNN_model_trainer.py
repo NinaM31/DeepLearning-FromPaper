@@ -1,6 +1,7 @@
 import yaml
 import torch 
 import torch.nn as nn
+import numpy as np
 
 from FFNN_model.BaseModel import BaseModel
 from constants import *
@@ -21,7 +22,7 @@ class FFNNModelTrainer:
 
 
     def calculate_loss(self, preds, Y_batch):
-        return self.critertion(pred, Y_batch.to(self.device))
+        return self.critertion(preds, Y_batch.to(self.device))
 
 
     def predict(self, X_batch):
@@ -46,13 +47,14 @@ class FFNNModelTrainer:
         return loss
     
 
-    def train(self, optimizer, train_loader, val_loader, print_every=100):
+    def train(self, optimizer, train_loader, val_loader, print_every=1):
         train_losses, valid_losses = [], []
         val_loss_min = np.Inf
 
         num_epochs = self.config["EPOCHS"]
         file_name = f"{BASE_PATH}/{self.config['SAVE_AS']}.pt"
 
+        print("Training ... ")
         for epoch in range( num_epochs ):
             
             tot_train_loss = 0
@@ -92,7 +94,8 @@ class FFNNModelTrainer:
 
                 torch.save(self.model.state_dict(), file_name)
                 val_loss_min = val_loss
-
+                
+        return train_losses, valid_losses
 
     def get_model(self, config):
         if config['MODAL'] == "BaseModal":

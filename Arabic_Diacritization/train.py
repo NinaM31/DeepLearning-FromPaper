@@ -16,12 +16,12 @@ with open("Arabic_Diacritization/configs/FNN_basic.yml", encoding="utf-8") as f:
 train_dataset = Dataset(
     TRAIN_DIR, 
     check_point_file=config["TRAIN_CHECK_POINT"],
-    # is_checpoint_exist=True
+    is_checpoint_exist=True #| use if you have a pickled file of the processed data
 )
 val_dataset = Dataset(
     VAL_DIR, 
     check_point_file=config["VALID_CHECK_POINT"],
-    # is_checpoint_exist=True
+    is_checpoint_exist=True #| use if you have a pickled file of the processed data
 )
 
 # DataLoaders
@@ -39,13 +39,13 @@ val_loader = DataLoader(
 )
 
 # Model
-fnn_basic = FFNNModelTrainer(config)
+ffnn_basic = FFNNModelTrainer(config)
 
 # Optimizer
-optimizer = optim.Adagrad(fnn_basic.model, lr=config["lR"])
+optimizer = optim.Adagrad(ffnn_basic.model.parameters(), lr=config["lR"])
 
 # train
-train_losses, val_losses = fnn_basic.train(optimizer, train_loader, val_loader, print_every=1)
+train_losses, val_losses = ffnn_basic.train(optimizer, train_loader, val_loader, print_every=1)
 
 # Plot
 plt.plot(train_losses, label='Train Loss')

@@ -20,4 +20,4 @@ class Dataset(torch.utils.data.Dataset):
 
 
     def __getitem__(self, idx):
-        return torch.IntTensor(self.X[idx]), torch.IntTensor(self.Y[idx])
+        return torch.FloatTensor(self.X[idx]), torch.FloatTensor(self.Y[idx])

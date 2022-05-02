@@ -29,10 +29,13 @@ class DataPreperation:
         print(f"Dataset size Y: {len(self.Y)}")
         print(f"Dataset size X: {len(self.X)}")
 
-        # sample
+        # sample size
         print(f"sample size X: {len(self.X[0])}")
         print(f"sample size Y: {len(self.Y[0])}")
+
+        # sample
         print(f"X sample:\n{self.X[0]}\nY sample:\n{self.Y[0]}\n")
+        print("-" * 45)
 
 
     def Load_check_point(self):
@@ -48,6 +51,7 @@ class DataPreperation:
             self.Y = pkl.load(fileY)
             gc.enable()
 
+        print("loading data finished")
 
     def save_check_point(self):
         ''' Save processed data '''
@@ -162,8 +166,7 @@ class DataPreperation:
                 self.X.append(x)
 
             # show progress every 1000 line
-            if j % 1000 == 0:
-
+            if j % 100 == 0:
                 # clear screen
                 print("\033c", end="")
 
