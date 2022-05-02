@@ -45,7 +45,37 @@ class FFNNModelTrainer:
         loss = self.calculate_loss(preds, Y_batch)
 
         return loss
-    
+
+
+    def load_model(self):
+        self.model =  self.get_model(self.config)
+
+        file_name = f"{self.config['SAVE_AS']}.pt"
+        self.model.load_state_dict( torch.load(file_name) )
+        self.model.to(self.device)
+
+
+    def diactrize(self, text):
+        self.load_model()
+
+        # format the data
+        from DataPreperation import DataPreperation
+
+        processor = DataPreperation(None, None)
+        X = processor.process_text(text)
+
+        # feed to model
+        X = torch.FloatTensor(X)
+        preds = self.predict(X)
+
+        # decode text
+        result = ""
+        dicratics = list(DIACRITICS_CLASS.keys())
+        for i, dicratic in enumerate(preds):
+            result += text[i] + dicratics[dicratic.argmax().item()]
+        
+        return result
+
 
     def train(self, optimizer, train_loader, val_loader, print_every=1):
         train_losses, valid_losses = [], []
@@ -94,8 +124,9 @@ class FFNNModelTrainer:
 
                 torch.save(self.model.state_dict(), file_name)
                 val_loss_min = val_loss
-                
+
         return train_losses, valid_losses
+
 
     def get_model(self, config):
         if config['MODAL'] == "BaseModal":

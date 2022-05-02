@@ -8,29 +8,41 @@ class BaseModel(nn.Module):
         super(BaseModel, self).__init__()
 
         self.base = nn.Sequential(
-            nn.Linear(in_feature, 400),
+            nn.Linear(in_feature, 600),
+            nn.ReLU(),
+            nn.Linear(600, 550),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+
+            nn.Linear(550, 500),
+            nn.ReLU(),
+            nn.Linear(500, 450),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+
+            nn.Linear(450, 400),
             nn.ReLU(),
             nn.Linear(400, 350),
             nn.ReLU(),
-            nn.Dropout(0.25),
+            nn.Dropout(0.1),
 
             nn.Linear(350, 300),
             nn.ReLU(),
             nn.Linear(300, 200),
             nn.ReLU(),
-            nn.Dropout(0.25),
+            nn.Dropout(0.1),
 
             nn.Linear(200, 150),
             nn.ReLU(),
             nn.Linear(150, 100),
             nn.ReLU(),
-            nn.Dropout(0.25),
+            nn.Dropout(0.1),
 
             nn.Linear(100, 50),
             nn.ReLU(),
             nn.Linear(50, 25),
             nn.ReLU(),
-            nn.Dropout(0.25),
+            nn.Dropout(0.2),
 
             nn.Linear(25, out_feature),
         )

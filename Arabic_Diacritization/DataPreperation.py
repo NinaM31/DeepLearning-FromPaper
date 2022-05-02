@@ -7,19 +7,21 @@ from constants import *
 class DataPreperation:
     ''' This class will prepare data for FFNN models'''
 
-    def __init__(self, data, check_point_file, is_checpoint_exist=False):
+    def __init__(self, data=None, check_point_file=None, is_checpoint_exist=False):
         ''' Load check point if exist, else process data '''
 
-        self.check_point_file = check_point_file
+        self.CHAR_2_IDX, self.IDX_2_CHAR = CHAR_IDX()
 
-        if is_checpoint_exist:
-            self.Load_check_point()
-        else:
-            self.CHAR_2_IDX, self.IDX_2_CHAR = CHAR_IDX()
-            self.process_data(data)
-        
-        self.description()
-        gc.collect()
+        if data:
+            self.check_point_file = check_point_file
+
+            if is_checpoint_exist:
+                self.Load_check_point()
+            else:
+                self.process_data(data)
+            
+            self.description()
+            gc.collect()
 
 
     def description(self):
@@ -52,6 +54,7 @@ class DataPreperation:
             gc.enable()
 
         print("loading data finished")
+
 
     def save_check_point(self):
         ''' Save processed data '''
@@ -135,6 +138,26 @@ class DataPreperation:
             else: x.append(0)
 
         return x
+
+
+    def process_text(self, text):
+        ''' Process a single text into the same format used by the paper '''
+
+        X = []
+
+        diacritics = list(DIACRITICS_CLASS.keys())
+        for i, char in enumerate(text):
+
+            # if not arabic, character ignore
+            if char not in ARABIC_CHAR:
+                continue
+            
+             # get character's x vector
+            x = self.get_x(text, i, diacritics)
+
+            X.append(x)
+        
+        return X
 
 
     def process_data(self, data):
