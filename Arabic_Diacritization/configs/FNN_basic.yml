@@ -8,7 +8,7 @@ FFNN_OUT : 15 #ََ  ً  ُ  ٌ  ِ  ٍ  ْ  ّ  َّ  ًّ  ُّ  ٌّ  ِّ  �
 FFNN_IN : 100 
 
 lR : 0.01
-EPOCHS : 50 
+EPOCHS : 200 
 
 IS_CHECKPOINT_EXIST: false # is your data prepared for FFNN models?
 
