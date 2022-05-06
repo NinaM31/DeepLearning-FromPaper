@@ -2,6 +2,7 @@ data
 images
 venv
 *.pkl
-CycleGAN
 tmp
+*.pt
+*.pickle
 __pycache__
