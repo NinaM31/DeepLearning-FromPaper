@@ -40,10 +40,6 @@ class DCGAN:
         print('\nGenerator')
         print(self.G)
 
-    def rescale_image(self, image):
-        min, max = (-1, 1)
-        image = image * (max - min) + min
-        return image
     
     def __calculate_loss(self, output, labels):
         criterion = nn.BCELoss()
@@ -88,7 +84,6 @@ class DCGAN:
     def train_discriminator(self, d_optim, real_images, size):
         d_optim.zero_grad()
 
-        # real_images = self.rescale_image(real_images) if image is not between -1 - 1
         d_real = self.D(real_images.to(self.device)).view(-1)
         d_real_loss = self.real_loss(d_real)
 

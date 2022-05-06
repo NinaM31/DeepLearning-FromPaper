@@ -17,7 +17,7 @@ class Dataset(torch.utils.data.Dataset):
             transforms.Resize(64),
             transforms.CenterCrop(64),
             transforms.ToTensor(),
-            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]),
+            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]), # normalize image between -1 and 1
         ])
 
 
