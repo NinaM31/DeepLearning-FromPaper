@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from mpl_toolkits.axes_grid1 import ImageGrid
 
 import torch
 import torch.optim as optim
@@ -34,7 +35,7 @@ optimizers = {
 }
 
 # Train
-losses = cycleGan.train(optimizers, data_loader_x, data_loader_y, test_data_loader_x, test_data_loader_y)
+losses, sample_result = cycleGan.train(optimizers, data_loader_x, data_loader_y, test_data_loader_x, test_data_loader_y)
 
 # Plot
 fig, ax = plt.subplots(figsize=(12,8))
@@ -44,4 +45,31 @@ plt.plot(losses.T[1], label='Discriminator, Y', alpha=0.5)
 plt.plot(losses.T[2], label='Generators', alpha=0.5)
 plt.title("Training Losses")
 plt.legend()
+plt.show()
+
+
+fig = plt.figure(figsize=(18, 14))
+grid = ImageGrid(fig, 111, nrows_ncols=(4, 2), axes_pad=0.1)
+fake = False
+
+samples = [] 
+samples.extend(sample_result[len(sample_result) - 1])
+samples.extend(sample_result[len(sample_result) - 2])
+for ax, im in zip(grid, samples):
+    _, w, h = im.size()
+    im = im.detach().cpu().numpy()
+    im = np.transpose(im, (1, 2, 0))
+    
+    im = ((im +1)*255 / (2)).astype(np.uint8)
+    ax.imshow(im.reshape((w,h,3)))
+
+    ax.xaxis.set_visible(False)
+    ax.yaxis.set_visible(False)
+
+    if not fake: title = "Original"
+    else: title = "fake"
+
+    ax.set_title(title)
+    fake = not fake
+
 plt.show()

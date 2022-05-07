@@ -1,3 +1,5 @@
+import pickle as pkl
+
 import torch
 
 from Generator import Generator
@@ -98,6 +100,7 @@ class CycleGAN:
 
     def train(self, optimizers, data_loader_x, data_loader_y, test_data_loader_x, test_data_loader_y, print_every=10, sample_every=100):
         losses = []
+        saved_samples = {}
     
         fixed_x = next(iter(test_data_loader_x))[0].to(self.device)
         fixed_y = next(iter(test_data_loader_y))[0].to(self.device)
@@ -121,7 +124,20 @@ class CycleGAN:
                     g_total_loss
                 ))
                 
-            if epoch % sample_every == 0:
-                ...
+            self.G_YtoX.eval() 
+            self.G_XtoY.eval()
+            saved_samples[epoch] = self.save_samples(fixed_y, fixed_x)
+            self.G_YtoX.train()
+            self.G_XtoY.train()
 
-        return losses
+        with open('CycleGAN_Sample_Output.pkl', 'wb') as f:
+            pkl.dump(saved_samples, f)
+
+        return losses, saved_samples
+    
+
+    def save_samples(self, fixed_y, fixed_x):
+        fake_x = self.G_YtoX(torch.unsqueeze(fixed_y, dim=0))
+        fake_y = self.G_XtoY(torch.unsqueeze(fixed_x, dim=0))
+
+        return [fixed_y, torch.squeeze(fake_x, 0), fixed_x, torch.squeeze(fake_y, 0)]
