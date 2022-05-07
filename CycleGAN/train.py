@@ -14,13 +14,9 @@ from config import *
 # Dataset
 x_dataset = Dataset(X_DATASET)
 y_dataset = Dataset(Y_DATASET)
-test_x_dataset = Dataset(X_DATASET, data_type="test")
-test_y_dataset = Dataset(Y_DATASET, data_type="test")
 
 data_loader_x = DataLoader(x_dataset, BATCH_SIZE, shuffle=True, num_workers=N_WORKERS)
 data_loader_y = DataLoader(y_dataset, BATCH_SIZE, shuffle=True, num_workers=N_WORKERS)
-test_data_loader_x = DataLoader(test_x_dataset, BATCH_SIZE, shuffle=True, num_workers=N_WORKERS)
-test_data_loader_y = DataLoader(test_y_dataset, BATCH_SIZE, shuffle=True, num_workers=N_WORKERS)
 
 # Model
 cycleGan = CycleGAN()
@@ -35,7 +31,7 @@ optimizers = {
 }
 
 # Train
-losses, sample_result = cycleGan.train(optimizers, data_loader_x, data_loader_y, test_data_loader_x, test_data_loader_y)
+losses, sample_result = cycleGan.train(optimizers, data_loader_x, data_loader_y)
 
 # Plot
 fig, ax = plt.subplots(figsize=(12,8))

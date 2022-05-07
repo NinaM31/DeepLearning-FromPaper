@@ -9,19 +9,19 @@ class Discriminator(nn.Module):
 
         self.main = nn.Sequential(
             nn.Conv2d(3, conv_dim, 4, 2, 1, bias=False),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
    
             nn.Conv2d(conv_dim, conv_dim * 2, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 2),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
             
             nn.Conv2d(conv_dim * 2, conv_dim * 4, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 4),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
             
             nn.Conv2d(conv_dim * 4, conv_dim * 8, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 8),
-            nn.ReLU(True),
+            nn.LeakyReLU(0.2, inplace=True),
         )
 
 

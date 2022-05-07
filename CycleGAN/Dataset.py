@@ -9,25 +9,19 @@ from config import *
 
 class Dataset(torch.utils.data.Dataset):
 
-    def __init__(self, img_dir, data_type="train"):
+    def __init__(self, img_dir):
         img_dir = BASE_DATASET_PATH + "/" + img_dir + "/"
         
         path_list = os.listdir(img_dir)
         abspath = os.path.abspath(img_dir) 
 
-        if data_type == "train": 
-            start = 0
-            end = round(len(path_list)*0.7)
-        else: 
-            start = round(len(path_list)*0.7) + 1
-            end = len(path_list)
-
         self.img_dir = img_dir
-        self.img_list = [os.path.join(abspath, path) for path in path_list[start: end]]
+        self.img_list = [os.path.join(abspath, path) for path in path_list]
 
         self.transform = transforms.Compose([
             transforms.Resize(IMG_SIZE),
             transforms.ToTensor(),
+            transforms.Normalize([0.5, 0.5, 0.5], [0.5, 0.5, 0.5]), # normalize image between -1 and 1
         ])
 
 

@@ -98,12 +98,12 @@ class CycleGAN:
         return d_x_loss.item(), d_y_loss.item()
 
 
-    def train(self, optimizers, data_loader_x, data_loader_y, test_data_loader_x, test_data_loader_y, print_every=10, sample_every=100):
+    def train(self, optimizers, data_loader_x, data_loader_y, print_every=10, sample_every=100):
         losses = []
         saved_samples = {}
     
-        fixed_x = next(iter(test_data_loader_x))[0].to(self.device)
-        fixed_y = next(iter(test_data_loader_y))[0].to(self.device)
+        fixed_x = next(iter(data_loader_x))[0].to(self.device)
+        fixed_y = next(iter(data_loader_y))[0].to(self.device)
 
         print(f'Running on {self.device}')
         for epoch in range(EPOCHS):
