@@ -2,7 +2,7 @@ BASE_DATASET_PATH = "CycleGAN/monet"
 X_DATASET = "photo_jpg"
 Y_DATASET = "monet_jpg"
 
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 N_WORKERS = 0
 
 IMG_SIZE = 128
@@ -10,4 +10,4 @@ LR = 0.0002
 BETA1 = 0.5
 BETA2 = 0.999
 
-EPOCHS = 50
+EPOCHS = 100

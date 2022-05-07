@@ -45,13 +45,11 @@ plt.show()
 
 
 fig = plt.figure(figsize=(18, 14))
-grid = ImageGrid(fig, 111, nrows_ncols=(4, 2), axes_pad=0.1)
-fake = False
+grid = ImageGrid(fig, 111, nrows_ncols=(2, 2), axes_pad=0.5)
 
 samples = [] 
-samples.extend(sample_result[len(sample_result) - 1])
-samples.extend(sample_result[len(sample_result) - 2])
-for ax, im in zip(grid, samples):
+samples.extend(sample_result[len(sample_result) - 1]) # top
+for i, (ax, im) in enumerate(zip(grid, samples)):
     _, w, h = im.size()
     im = im.detach().cpu().numpy()
     im = np.transpose(im, (1, 2, 0))
@@ -62,10 +60,9 @@ for ax, im in zip(grid, samples):
     ax.xaxis.set_visible(False)
     ax.yaxis.set_visible(False)
 
-    if not fake: title = "Original"
+    if i%2 == 0: title = "Original"
     else: title = "fake"
 
     ax.set_title(title)
-    fake = not fake
 
 plt.show()
