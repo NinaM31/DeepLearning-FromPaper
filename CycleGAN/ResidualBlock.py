@@ -10,7 +10,7 @@ class ResidualBlock(nn.Module):
         self.conv_layer1 = nn.Sequential(
             nn.Conv2d(conv_dim, conv_dim, 3, 1, 1, bias=False),
             nn.BatchNorm2d(conv_dim),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
         )
 
         self.conv_layer2 = nn.Sequential(

@@ -11,15 +11,15 @@ class Generator(nn.Module):
 
         self.conv = nn.Sequential(
             nn.Conv2d(3, conv_dim, 4, 2, 1, bias=False),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
    
             nn.Conv2d(conv_dim, conv_dim * 2, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 2),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
             
             nn.Conv2d(conv_dim * 2, conv_dim * 4, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 4),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
         )
 
         res_layers = []
@@ -29,11 +29,11 @@ class Generator(nn.Module):
         self.dconv = nn.Sequential(
             nn.ConvTranspose2d(conv_dim * 4, conv_dim * 2, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim * 2),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
            
             nn.ConvTranspose2d(conv_dim * 2, conv_dim, 4, 2, 1, bias=False),
             nn.BatchNorm2d(conv_dim),
-            nn.LeakyReLU(0.2, inplace=True),
+            nn.ReLU(True),
           
             nn.ConvTranspose2d(conv_dim, 3, 4, 2, 1, bias=False),
             nn.Tanh()
