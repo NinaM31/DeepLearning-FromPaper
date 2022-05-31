@@ -1,0 +1,18 @@
+MODAL : "100HotModel"
+SAVE_AS : "FNN_100_hot_model"
+
+BATCH_SIZE : 256
+N_WORKERS : 0
+
+FFNN_OUT : 15 #ََ  ً  ُ  ٌ  ِ  ٍ  ْ  ّ  َّ  ًّ  ُّ  ٌّ  ِّ  ٍّ  + no-diacritic = 15
+
+lR : 0.001
+BETA1: 0.9
+BETA2: 0.999
+EPOCHS : 200 
+
+IS_CHECKPOINT_EXIST: false # is your data prepared for FFNN models?
+
+TRAIN_CHECK_POINT: "Train"
+VALID_CHECK_POINT: "Valid"
+TEST_CHECK_POINT: "Test"
