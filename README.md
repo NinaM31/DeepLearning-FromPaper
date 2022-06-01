@@ -1,4 +1,4 @@
-# DeepLearning-FromPaper
+# DeepLearning-From-Paper
 Understanding and implementing research papers to solve problems (PyTorch)
 
 | Paper | My implementation | Run Online               |
