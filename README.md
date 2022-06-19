@@ -1,5 +1,5 @@
-# DeepLearning-FromPaper
-Understanding and implementing research papers to solve problems (PyTorch)
+# DeepLearning-From-Paper
+Read and implementing research papers to solve problems (PyTorch)
 
 | Paper | My implementation | Run Online               |
 |:-----:|:-----------------:|:------------------:|
@@ -8,4 +8,4 @@ Understanding and implementing research papers to solve problems (PyTorch)
 | [Deep Convolutional Generative Adversarial Networks (DCGAN)](https://arxiv.org/pdf/1511.06434.pdf) | [Monet problem ](https://github.com/NinaM31/DeepLearning-FromPaper/tree/main/DCGAN) |<a href="https://www.kaggle.com/code/ninamaamary/dcgan-artist"> ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)</a> |
 | [Neural Arabic Text Diacritization: State of the Art Results and a Novel Approach for Machine Translation](https://aclanthology.org/D19-5229.pdf)| [Arabic diacritization](./Arabic_Diacritization/) |
 | [Unpaired Image-to-Image Translation using Cycle-Consistent Adversarial Networks](https://arxiv.org/pdf/1703.10593.pdf) | [Monet problem](./CycleGAN) | <a href="https://www.kaggle.com/code/ninamaamary/cyclegan-artist">monet: ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)</a> <br><a href="https://www.kaggle.com/code/ninamaamary/selfie2anime-cyclegan-pytorch">selfie2anime: ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?style=for-the-badge&logo=Kaggle&logoColor=white)</a> |
-|Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation | - | - |
+|[Unsupervised Generative Attentional Networks with Adaptive Layer-Instance Normalization for Image-to-Image Translation](https://arxiv.org/pdf/1907.10830v4.pdf) | - | - |
